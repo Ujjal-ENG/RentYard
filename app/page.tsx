@@ -12,5 +12,5 @@ const LandingPage: React.FC = () => {
     </div>
   );
 }
-
+ 
 export default LandingPage;

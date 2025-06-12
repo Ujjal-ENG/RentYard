@@ -1,0 +1,190 @@
+"use client"
+
+import { Button } from "@/components/ui/button"
+import { Form } from "@/components/ui/form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { CustomFormField } from "./FormField"
+import { PhotoUpload } from "./PhotoUpload"
+import { CondoFormData, condoFormSchema } from "./types"
+
+export function CondoForm() {
+  const form = useForm<CondoFormData>({
+    resolver: zodResolver(condoFormSchema),
+    defaultValues: {
+      propertyAddress: "",
+      leasingInfo: "",
+      charges: "",
+      rentFrequencyPaymentReminder: "",
+      petFees: "",
+      parking: "",
+      nearestEducationalInstitution: "",
+      nearestStations: "",
+      applicationAgreement: "",
+      nearestLandmark: "",
+      aboutProperty: "",
+      utilitiesProvider: "",
+      communityAmenityFeatures: "",
+    },
+  })
+
+  const onSubmit = (data: CondoFormData) => {
+    console.log("Form submitted:", data)
+    // Handle form submission here
+  }
+
+  const handlePhotoUpload = (files: File[], type: 'featured' | 'more' | 'cover') => {
+    console.log(`${type} photos uploaded:`, files)
+    // Handle photo upload here
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto p-6 bg-white">
+      <h1 className="text-2xl font-bold text-gray-900 mb-8">Add condominiums information</h1>
+      
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          {/* Form Fields Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CustomFormField
+              control={form.control}
+              name="propertyAddress"
+              label="Property address"
+              required
+              error={form.formState.errors.propertyAddress}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="petFees"
+              label="Pet fees"
+              placeholder="Optional, add fees if you allow pet"
+              error={form.formState.errors.petFees}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="leasingInfo"
+              label="Leasing info"
+              required
+              error={form.formState.errors.leasingInfo}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="parking"
+              label="Parking"
+              error={form.formState.errors.parking}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="charges"
+              label="Charges"
+              required
+              error={form.formState.errors.charges}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="nearestEducationalInstitution"
+              label="Nearest educational institution"
+              recommended
+              error={form.formState.errors.nearestEducationalInstitution}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="rentFrequencyPaymentReminder"
+              label="Rent frequency & payment reminder"
+              required
+              error={form.formState.errors.rentFrequencyPaymentReminder}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="nearestStations"
+              label="Nearest stations"
+              recommended
+              error={form.formState.errors.nearestStations}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="applicationAgreement"
+              label="Application agreement"
+              error={form.formState.errors.applicationAgreement}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="nearestLandmark"
+              label="Nearest landmark"
+              recommended
+              error={form.formState.errors.nearestLandmark}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="aboutProperty"
+              label="About the property"
+              type="textarea"
+              error={form.formState.errors.aboutProperty}
+            />
+            
+            <CustomFormField
+              control={form.control}
+              name="utilitiesProvider"
+              label="Utilities provider"
+              recommended
+              error={form.formState.errors.utilitiesProvider}
+            />
+          </div>
+
+          {/* Community Features - Full Width */}
+          <div className="w-full">
+            <CustomFormField
+              control={form.control}
+              name="communityAmenityFeatures"
+              label="Community's amenity/features"
+              recommended
+              type="textarea"
+              error={form.formState.errors.communityAmenityFeatures}
+            />
+          </div>
+
+          {/* Photo Upload Sections */}
+          <div className="space-y-8">
+            <div className="border-t pt-8">
+              <div className="text-lg font-medium text-gray-900 mb-2">
+                Property gallery
+                <span className="text-sm font-normal text-gray-500">(Its not unit photos)*</span>
+              </div>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+                <PhotoUpload
+                  title="Featured photos*"
+                  onUpload={(files) => handlePhotoUpload(files, 'featured')}
+                  isCover={true}
+                />
+                
+                <PhotoUpload
+                  title="More photos"
+                  subtitle="(optional)"
+                  onUpload={(files) => handlePhotoUpload(files, 'more')}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex justify-end pt-6">
+            <Button type="submit" className="px-8 py-2">
+              Submit
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
+  )
+}
