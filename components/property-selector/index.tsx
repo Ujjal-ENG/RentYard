@@ -81,9 +81,11 @@ export function PropertySelector({ onSelectionComplete }: PropertySelectorProps)
           {/* Action Buttons */}
           <div className="flex items-center justify-between pt-6">
             <Button
-              variant="outline"
+              variant="default"
               onClick={handleBack}
-              className="px-6"
+              className="px-6 underline
+              "
+  
             >
               Back
             </Button>
@@ -92,8 +94,24 @@ export function PropertySelector({ onSelectionComplete }: PropertySelectorProps)
               onClick={handleContinue}
               disabled={!selectedRole}
               className="px-8"
+              style={{
+              display: 'flex',
+              width: '128px',
+              padding: '12px 24px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '10px',
+              borderRadius: '12px',
+              background: ' #316EED',
+              color: ' #FFFFFF',
+              fontFamily: 'Fustat',
+              fontSize: '16px',
+              fontStyle: 'normal',
+              fontWeight: 400,
+              lineHeight: 'normal'
+            }}
             >
-              Continue
+              Get Started
             </Button>
           </div>
         </div>
