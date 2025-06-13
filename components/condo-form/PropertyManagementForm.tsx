@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { FormCheckbox } from "../shared/FormCheckbox"
+import { Title } from "../shared/Title"
 import { FileUpload } from "./FileUpload"
 import { PhoneInput } from "./PhoneInput"
 import { PropertyManagementFormData, propertyManagementFormSchema } from "./types"
@@ -34,11 +35,11 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
   })
 
   return (
-    <div className="bg-gray-50 rounded-lg p-6 space-y-6">
-      <h3 className="text-lg font-medium text-gray-900">Company & office info</h3>
+    <div className="rounded-lg border-2 space-y-6 border-gray-200">
+      <Title text="Company & office info" />
       
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-6">
           {/* First Row */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <FormField

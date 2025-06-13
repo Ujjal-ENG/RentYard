@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { FormCheckbox } from "../shared/FormCheckbox"
+import { Title } from "../shared/Title"
 import { FileUpload } from "./FileUpload"
 import { RealtorFormData, realtorFormSchema } from "./types"
 
@@ -22,12 +23,12 @@ export function RealtorForm({ onSubmit }: RealtorFormProps) {
   })
 
   return (
-    <div className="bg-gray-50 rounded-lg p-6 space-y-6">
-      <h3 className="text-lg font-medium text-gray-900">Realtor verification</h3>
+    <div className="rounded-lg space-y-6 border-2 border-gray-200">
+      <Title text="Realtor verification" />
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
             <FormField
               control={form.control}
               name="lenienceNumber"
@@ -86,13 +87,14 @@ export function RealtorForm({ onSubmit }: RealtorFormProps) {
               )}
             />
           </div>
-    {/* Shared Form from shared folder */}
+
+        </form>
+            {/* Shared Form from shared folder */}
          <FormCheckbox
           control={form.control}
           name="acceptTerms"
           label="Accept RentYard property adding terms & condition"
           />
-        </form>
       </Form>
     </div>
   )

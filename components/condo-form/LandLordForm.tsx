@@ -4,6 +4,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { FormCheckbox } from "../shared/FormCheckbox"
+import { Title } from "../shared/Title"
 import { FileUpload } from "./FileUpload"
 import { LandlordFormData, landlordFormSchema } from "./types"
 
@@ -20,8 +21,8 @@ export function LandlordForm({ onSubmit }: LandlordFormProps) {
   })
 
   return (
-    <div className="rounded-lg space-y-6">
-      <h3 className="text-lg font-medium text-gray-900 bor">Proof of ownership</h3>
+    <div className="rounded-lg border-2 space-y-6 border-gray-200">
+      <Title text="Proof of ownership" />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-6 ">
           <FormField
