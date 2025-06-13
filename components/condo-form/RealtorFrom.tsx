@@ -88,10 +88,10 @@ export function RealtorForm({ onSubmit }: RealtorFormProps) {
           </div>
     {/* Shared Form from shared folder */}
          <FormCheckbox
-                     control={form.control}
-                     name="acceptTerms"
-                     label="Accept RentYard property adding terms & condition"
-                     />
+          control={form.control}
+          name="acceptTerms"
+          label="Accept RentYard property adding terms & condition"
+          />
         </form>
       </Form>
     </div>

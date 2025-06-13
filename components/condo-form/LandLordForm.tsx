@@ -20,10 +20,10 @@ export function LandlordForm({ onSubmit }: LandlordFormProps) {
   })
 
   return (
-    <div className="bg-gray-50 rounded-lg p-6 space-y-6">
-      <h3 className="text-lg font-medium text-gray-900">Proof of ownership</h3>
+    <div className="rounded-lg space-y-6">
+      <h3 className="text-lg font-medium text-gray-900 bor">Proof of ownership</h3>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-6 ">
           <FormField
             control={form.control}
             name="ownershipDoc"
