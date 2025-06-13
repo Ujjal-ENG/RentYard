@@ -7,37 +7,69 @@ import { Button } from "@/components/ui/button"
 import { PropertyTypeId, RoleId } from "@/utils/types"
 
 import { propertyTypes, roles } from "@/lib/mockData"
+import { LandlordForm } from "../condo-form/LandLordForm"
+import { PropertyManagementForm } from "../condo-form/PropertyManagementForm"
+import { RealtorForm } from "../condo-form/RealtorFrom"
+import { LandlordFormData, PropertyManagementFormData, RealtorFormData } from "../condo-form/types"
 import { PropertyTypeCard } from "./PropertyTypeCard"
 import { RoleCard } from "./RoleCard"
 
 interface PropertySelectorProps {
-  onSelectionComplete?: (propertyType: PropertyTypeId, role: RoleId) => void
+  onComplete?: (data: {
+    propertyType: PropertyTypeId
+    role: RoleId
+    formData: LandlordFormData | RealtorFormData | PropertyManagementFormData
+  }) => void
 }
 
-export function PropertySelector({ onSelectionComplete }: PropertySelectorProps) {
+export function PropertySelector({ onComplete }: PropertySelectorProps) {
   const [selectedPropertyType, setSelectedPropertyType] = useState<PropertyTypeId | null>(null)
   const [selectedRole, setSelectedRole] = useState<RoleId | null>(null)
   const [showRoleSelection, setShowRoleSelection] = useState(false)
 
   const handlePropertyTypeSelect = (propertyTypeId: PropertyTypeId) => {
     setSelectedPropertyType(propertyTypeId)
-    setSelectedRole(null) // Reset role selection when property type changes
-    setShowRoleSelection(true) // Show role selection
+    setSelectedRole(null)
+    setShowRoleSelection(true)
   }
 
   const handleRoleSelect = (roleId: RoleId) => {
     setSelectedRole(roleId)
   }
 
-  const handleContinue = () => {
+  const handleFormSubmit = (formData: LandlordFormData | RealtorFormData | PropertyManagementFormData) => {
     if (selectedPropertyType && selectedRole) {
-      onSelectionComplete?.(selectedPropertyType, selectedRole)
+      onComplete?.({
+        propertyType: selectedPropertyType,
+        role: selectedRole,
+        formData
+      })
     }
+  }
+
+   const handleContinue = () => {
+    // if (selectedPropertyType && selectedRole) {
+    //   showRoleSelection?.(selectedPropertyType, selectedRole)
+     // }
+     console.log("clicked continue")
   }
 
   const handleBack = () => {
     setShowRoleSelection(false)
     setSelectedRole(null)
+  }
+
+  const renderRoleForm = () => {
+    switch (selectedRole) {
+      case 'landlord':
+        return <LandlordForm onSubmit={handleFormSubmit} />
+      case 'realtor':
+        return <RealtorForm onSubmit={handleFormSubmit} />
+      case 'property-management':
+        return <PropertyManagementForm onSubmit={handleFormSubmit} />
+      default:
+        return null
+    }
   }
 
   return (
@@ -60,9 +92,9 @@ export function PropertySelector({ onSelectionComplete }: PropertySelectorProps)
         </div>
       </div>
 
-      {/* Role Selection - Only show when property type is selected */}
+      {/* Role Selection */}
       {showRoleSelection && (
-        <div className="space-y-6 animate-in slide-in-from-bottom-4 duration-600">
+        <div className="space-y-6 animate-in slide-in-from-bottom-4 duration-300">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold text-gray-900">Select your role</h2>
           </div>
@@ -78,14 +110,19 @@ export function PropertySelector({ onSelectionComplete }: PropertySelectorProps)
             ))}
           </div>
 
+          {/* Role-specific Form */}
+          {selectedRole && (
+            <div className="animate-in slide-in-from-bottom-4 duration-300">
+              {renderRoleForm()}
+            </div>
+          )}
+
           {/* Action Buttons */}
           <div className="flex items-center justify-between pt-6">
             <Button
               variant="default"
               onClick={handleBack}
-              className="px-6 underline
-              "
-  
+              className="px-6 underline"
             >
               Back
             </Button>
