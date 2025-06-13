@@ -35,6 +35,7 @@ export function LandlordForm({ onSubmit }: LandlordFormProps) {
                 </FormLabel>
                 <FormControl>
                   <FileUpload
+                  
                     onFileSelect={(file) => field.onChange(file)}
                     placeholder="(Pdf only)"
                     required

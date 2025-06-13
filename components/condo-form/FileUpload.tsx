@@ -34,10 +34,10 @@ export function FileUpload({
   return (
     <div className={cn("space-y-2", className)}>
       <div
-        className="border-2 border-dashed border-gray-300 rounded-lg p-6 cursor-pointer hover:border-gray-400 transition-colors"
+        className="border-2 border-dashed border-gray-300 rounded-lg p-2 max-w-sm cursor-pointer hover:border-gray-400 transition-colors"
         onClick={openFileDialog}
       >
-        <div className="flex flex-col items-center justify-center text-center">
+        <div className="flex gap-3 items-center justify-center text-center">
           {selectedFile ? (
             <>
               <FileText className="w-8 h-8 text-gray-600 mb-2" />
@@ -47,7 +47,7 @@ export function FileUpload({
           ) : (
             <>
               <Upload className="w-8 h-8 text-gray-400 mb-2" />
-              <span className="text-sm text-gray-500">{placeholder}</span>
+              <span className="text-md font-semibold text-gray-500">{placeholder}</span>
             </>
           )}
         </div>
