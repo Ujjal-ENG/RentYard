@@ -1,9 +1,9 @@
 "use client"
 
-import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { FormCheckbox } from "../shared/FormCheckbox"
 import { FileUpload } from "./FileUpload"
 import { LandlordFormData, landlordFormSchema } from "./types"
 
@@ -22,7 +22,6 @@ export function LandlordForm({ onSubmit }: LandlordFormProps) {
   return (
     <div className="bg-gray-50 rounded-lg p-6 space-y-6">
       <h3 className="text-lg font-medium text-gray-900">Proof of ownership</h3>
-      
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
@@ -45,26 +44,13 @@ export function LandlordForm({ onSubmit }: LandlordFormProps) {
             )}
           />
 
-          <FormField
+              {/* Shared Form from shared folder */}
+
+          <FormCheckbox
             control={form.control}
             name="acceptTerms"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel className="text-sm text-gray-700">
-                    Accept RentYard property adding terms & condition
-                  </FormLabel>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            label="Accept RentYard property adding terms & condition"
+            />
         </form>
       </Form>
     </div>

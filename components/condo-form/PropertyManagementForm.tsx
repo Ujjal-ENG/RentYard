@@ -1,11 +1,11 @@
 "use client"
 
-import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { FormCheckbox } from "../shared/FormCheckbox"
 import { FileUpload } from "./FileUpload"
 import { PhoneInput } from "./PhoneInput"
 import { PropertyManagementFormData, propertyManagementFormSchema } from "./types"
@@ -266,26 +266,12 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
             />
           </div>
 
-          <FormField
-            control={form.control}
-            name="acceptTerms"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel className="text-sm text-gray-700">
-                    Accept RentYard property adding terms & condition
-                  </FormLabel>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {/* Shared Form from shared folder */}
+        <FormCheckbox
+                    control={form.control}
+                    name="acceptTerms"
+                    label="Accept RentYard property adding terms & condition"
+                    />
         </form>
       </Form>
     </div>
