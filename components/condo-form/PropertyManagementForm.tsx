@@ -1,9 +1,11 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { zodResolver } from "@hookform/resolvers/zod"
+import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { FormCheckbox } from "../shared/FormCheckbox"
 import { Title } from "../shared/Title"
@@ -13,11 +15,13 @@ import { PropertyManagementFormData, propertyManagementFormSchema } from "./type
 
 interface PropertyManagementFormProps {
   onSubmit: (data: PropertyManagementFormData) => void
+  nextPageUrl?: string // URL to redirect to after form submission
 }
 
-export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps) {
+export function PropertyManagementForm({ onSubmit, nextPageUrl = "/address" }: PropertyManagementFormProps) {
   const form = useForm<PropertyManagementFormData>({
     resolver: zodResolver(propertyManagementFormSchema),
+    mode: "onChange", // Enable real-time validation
     defaultValues: {
       companyName: "",
       companyIdentifier: "",
@@ -30,16 +34,29 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
       city: "",
       state: "",
       zipCode: "",
-      acceptTerms: false
+      acceptTerms: false,
+      agreementWithLandlordOwner: undefined
     }
   })
+
+  // Watch form values to determine if form is valid
+  const watchedValues = form.watch()
+  const isFormValid = form.formState.isValid && watchedValues.acceptTerms
+
+  const handleBack = () => {
+    window.history.back();
+  };
+
+  const handleSubmit = (data: PropertyManagementFormData) => {
+    onSubmit(data)
+  }
 
   return (
     <div className="relative rounded-lg border-2 space-y-6 border-gray-200">
       <Title text="Company & office info" />
       
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-6">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6 p-6">
           {/* First Row */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <FormField
@@ -51,7 +68,11 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
                     Company name<span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="Runyan trade center" {...field} />
+                    <Input 
+                      placeholder="Runyan trade center" 
+                      {...field}
+                      className={form.formState.errors.companyName ? "border-red-500" : ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -67,7 +88,11 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
                     Company Identifier(EIN/TIN)<span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="Name" {...field} />
+                    <Input 
+                      placeholder="12-3456789" 
+                      {...field}
+                      className={form.formState.errors.companyIdentifier ? "border-red-500" : ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,7 +108,11 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
                     Your job title<span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="Manager" {...field} />
+                    <Input 
+                      placeholder="Manager" 
+                      {...field}
+                      className={form.formState.errors.jobTitle ? "border-red-500" : ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -123,7 +152,7 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
                   </FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className={form.formState.errors.country ? "border-red-500" : ""}>
                         <SelectValue placeholder="Choose country" />
                       </SelectTrigger>
                     </FormControl>
@@ -147,7 +176,11 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
                     Street address<span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="111 Austin Ave" {...field} />
+                    <Input 
+                      placeholder="111 Austin Ave" 
+                      {...field}
+                      className={form.formState.errors.streetAddress ? "border-red-500" : ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -183,6 +216,7 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
                       value={field.value}
                       onChange={field.onChange}
                       placeholder="+880"
+                   
                     />
                   </FormControl>
                   <FormMessage />
@@ -202,7 +236,12 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
                     Contact email<span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="majarul2025@gmail.com" type="email" {...field} />
+                    <Input 
+                      placeholder="majarul2025@gmail.com" 
+                      type="email" 
+                      {...field}
+                      className={form.formState.errors.contactEmail ? "border-red-500" : ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -218,7 +257,11 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
                     City/Town<span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="Dallas" {...field} />
+                    <Input 
+                      placeholder="Dallas" 
+                      {...field}
+                      className={form.formState.errors.city ? "border-red-500" : ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -235,7 +278,7 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
                   </FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className={form.formState.errors.state ? "border-red-500" : ""}>
                         <SelectValue placeholder="Choose state" />
                       </SelectTrigger>
                     </FormControl>
@@ -259,7 +302,11 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
                     Zip code<span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="75061" {...field} />
+                    <Input 
+                      placeholder="75061" 
+                      {...field}
+                      className={form.formState.errors.zipCode ? "border-red-500" : ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -267,14 +314,79 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
             />
           </div>
 
-          {/* Shared Form from shared folder */}
-          <FormCheckbox
-            className="absolute mt-10 left-[-2px]"
-            control={form.control}
-            name="acceptTerms"
-            label="Accept RentYard property adding terms & condition"
-          />
-          
+          <div className="absolute bottom-[-105px] left-0 w-full">
+  {/* Terms and Conditions Checkbox */}
+          <div className="mt-6">
+            <FormCheckbox
+              control={form.control}
+              name="acceptTerms"
+              label="Accept RentYard property adding terms & condition"
+            />
+          </div>
+
+          {/* Get Started Button */}
+            <div className="flex items-center justify-between pt-6">
+            <Button
+              variant="default"
+              onClick={handleBack}
+              className="px-6 underline"
+            >
+              Back
+            </Button>
+            {isFormValid ? (
+              <Link href={nextPageUrl}>
+                <Button 
+                  type="submit"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 rounded-md font-medium"
+                              style={{
+              display: 'flex',
+              width: '128px',
+              padding: '12px 24px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '10px',
+              borderRadius: '12px',
+              background: ' #316EED',
+              color: ' #FFFFFF',
+              fontFamily: 'Fustat',
+              fontSize: '16px',
+              fontStyle: 'normal',
+              fontWeight: 400,
+              lineHeight: 'normal'
+            }}
+                >
+                  Get Started
+                </Button>
+              </Link>
+            ) : (
+              <Button 
+                type="button"
+                    disabled
+                        style={{
+              display: 'flex',
+              width: '128px',
+              padding: '12px 24px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '10px',
+              borderRadius: '12px',
+              background: ' #316EED',
+              color: ' #FFFFFF',
+              fontFamily: 'Fustat',
+              fontSize: '16px',
+              fontStyle: 'normal',
+              fontWeight: 400,
+              lineHeight: 'normal'
+            }}
+              >
+                Get Started
+              </Button>
+              )}
+            
+          </div>
+          </div>
+
+        
         </form>
       </Form>
     </div>

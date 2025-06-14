@@ -2,12 +2,10 @@
 
 import { useState } from "react"
 
-import { Button } from "@/components/ui/button"
 
 import { PropertyTypeId, RoleId } from "@/utils/types"
 
 import { propertyTypes, roles } from "@/lib/mockData"
-import Link from "next/link"
 import { LandlordForm } from "../condo-form/LandLordForm"
 import { PropertyManagementForm } from "../condo-form/PropertyManagementForm"
 import { RealtorForm } from "../condo-form/RealtorFrom"
@@ -48,17 +46,6 @@ export function PropertySelector({ onComplete }: PropertySelectorProps) {
     }
   }
 
-   const handleContinue = () => {
-    // if (selectedPropertyType && selectedRole) {
-    //   showRoleSelection?.(selectedPropertyType, selectedRole)
-     // }
-     console.log("clicked continue")
-  }
-
-  const handleBack = () => {
-    setShowRoleSelection(false)
-    setSelectedRole(null)
-  }
 
   const renderRoleForm = () => {
     switch (selectedRole) {
@@ -119,38 +106,8 @@ export function PropertySelector({ onComplete }: PropertySelectorProps) {
           )}
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-between pt-6">
-            <Button
-              variant="default"
-              onClick={handleBack}
-              className="px-6 underline"
-            >
-              Back
-            </Button>
-            
-            <Link
-              href={"/address"}
-              onClick={handleContinue}
-              className="px-8"
-              style={{
-              display: 'flex',
-              width: '128px',
-              padding: '12px 24px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '10px',
-              borderRadius: '12px',
-              background: ' #316EED',
-              color: ' #FFFFFF',
-              fontFamily: 'Fustat',
-              fontSize: '16px',
-              fontStyle: 'normal',
-              fontWeight: 400,
-              lineHeight: 'normal'
-            }}
-            >
-              Get Started
-            </Link>
+          <div className="flex items-center justify-between py-14">
+           
           </div>
         </div>
       )}
