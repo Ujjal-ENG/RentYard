@@ -53,7 +53,7 @@ const getStyledLabel = () => {
   return (
     <div className="space-y-2">
       <div className="relative flex items-center justify-between">
-        <FormLabel className={cn(labelIsPositioned? "text-xs text-balance font-medium absolute top-5.5 left-3.5": "text-sm text-balance font-medium")}>
+        <FormLabel className={cn(labelIsPositioned? "text-xs text-balance font-medium absolute top-5.5 left-3.5": "text-xs text-balance font-medium")}>
           {getStyledLabel()}
         </FormLabel>
         {isAddButtonVisible &&

@@ -1,6 +1,7 @@
 "use client"
 
 import { GenericModal } from "@/components/GenericModal"
+import LeasingInfo from "@/components/condo-form/modal/LeasingInfo"
 import { PropertyAddressForm } from "@/components/condo-form/modal/PropertyAddressFormModal"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
@@ -79,6 +80,7 @@ export default function CondoForm() {
               label="Leasing info"
               required
               error={form.formState.errors.leasingInfo}
+              onAddClick={() => setModalType("leasingInfo")}
             />
             
             <CustomFormField
@@ -195,12 +197,14 @@ export default function CondoForm() {
       ? "Add Property Address"
       : modalType === "petFees"
       ? "Add Pet Fees"
-      : "Add Info"
+      : modalType === "leasingInfo"
+          ? "Add Leasing Info"
+      : "Add Information"
   }
   onClose={() => setModalType(null)}
 >
   {modalType === "propertyAddress" && <PropertyAddressForm control={form.control} errors={form.formState.errors}/>}
-
+  {modalType === "leasingInfo" && <LeasingInfo control={form.control} errors={form.formState.errors}/>}
 </GenericModal>
           {/* Submit Button */}
            <div className="flex items-center justify-between pt-6">
