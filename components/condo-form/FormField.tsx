@@ -1,10 +1,10 @@
-import { Control, FieldError, FieldValues, Path } from "react-hook-form"
+import { Button } from "@/components/ui/button"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Plus } from "lucide-react"
+import { Control, FieldError, FieldValues, Path } from "react-hook-form"
 
 interface CustomFormFieldProps<T extends FieldValues> {
   control: Control<T>
@@ -41,15 +41,15 @@ export function CustomFormField<T extends FieldValues>({
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <FormLabel className={cn("text-sm font-medium", getLabelColor())}>
+      <div className="relative flex items-center justify-between">
+        <FormLabel className={cn("text-sm font-medium absolute top-3.5 left-3.5", getLabelColor())}>
           {getLabelText()}
         </FormLabel>
         <Button
           type="button"
           variant="ghost"
           size="sm"
-          className="text-blue-500 hover:text-blue-600 p-0 h-auto font-normal"
+          className="text-blue-500 hover:text-blue-600 p-0 h-auto font-normal absolute right-2.5 top-3.5"
         >
           <Plus className="w-4 h-4 mr-1" />
           Add

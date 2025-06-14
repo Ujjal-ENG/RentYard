@@ -42,7 +42,7 @@ export default function CondoForm() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white">
+    <div className="max-w-6xl mx-auto p-6 bg-white">
       <h1 className="text-2xl font-bold text-gray-900 mb-8">Add condominiums information</h1>
       
       <Form {...form}>
@@ -131,7 +131,7 @@ export default function CondoForm() {
               control={form.control}
               name="aboutProperty"
               label="About the property"
-              type="textarea"
+             
               error={form.formState.errors.aboutProperty}
             />
             
@@ -142,19 +142,19 @@ export default function CondoForm() {
               recommended
               error={form.formState.errors.utilitiesProvider}
             />
-          </div>
-
-          {/* Community Features - Full Width */}
-          <div className="w-full">
+     
             <CustomFormField
               control={form.control}
               name="communityAmenityFeatures"
               label="Community's amenity/features"
               recommended
-              type="textarea"
+       
               error={form.formState.errors.communityAmenityFeatures}
             />
+         
           </div>
+
+
 
           {/* Photo Upload Sections */}
           <div className="space-y-8">
