@@ -1,14 +1,20 @@
 "use client"
 
+import { GenericModal } from "@/components/GenericModal"
+import { PropertyAddressForm } from "@/components/condo-form/modal/PropertyAddressFormModal"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { PhotoUpload } from "../../components/condo-form/PhotoUpload"
 import { CondoFormData, condoFormSchema } from "../../components/condo-form/types"
 import { CustomFormField } from "../../elements/input/FormField"
 
 export default function CondoForm() {
+
+  const [modalType, setModalType] = useState<null | string>(null)
+
   const form = useForm<CondoFormData>({
     resolver: zodResolver(condoFormSchema),
     defaultValues: {
@@ -49,21 +55,22 @@ export default function CondoForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           {/* Form Fields Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <CustomFormField
-              control={form.control}
-              name="propertyAddress"
-              label="Property address"
-              required
-              error={form.formState.errors.propertyAddress}
+          <CustomFormField
+            control={form.control}
+            name="propertyAddress"
+            label="Property address"
+            required
+            error={form.formState.errors.propertyAddress}
+            onAddClick={() => setModalType("propertyAddress")}
             />
-            
+
             <CustomFormField
-              control={form.control}
-              name="petFees"
-              label="Pet fees"
-            
-              error={form.formState.errors.petFees}
-            />
+            control={form.control}
+            name="petFees"
+            label="Pet fees"
+            error={form.formState.errors.petFees}
+            onAddClick={() => setModalType("petFees")}
+                  />
             
             <CustomFormField
               control={form.control}
@@ -180,6 +187,20 @@ export default function CondoForm() {
             </div>
           </div>
 
+          <GenericModal
+  isOpen={modalType !== null}
+  title={
+    modalType === "propertyAddress"
+      ? "Add Property Address"
+      : modalType === "petFees"
+      ? "Add Pet Fees"
+      : "Add Info"
+  }
+  onClose={() => setModalType(null)}
+>
+  {modalType === "propertyAddress" && <PropertyAddressForm control={form.control} errors={form.formState.errors}/>}
+
+</GenericModal>
           {/* Submit Button */}
            <div className="flex items-center justify-between pt-6">
             <Button

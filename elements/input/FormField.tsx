@@ -15,6 +15,7 @@ interface CustomFormFieldProps<T extends FieldValues> {
   recommended?: boolean
   type?: 'input' | 'textarea'
   error?: FieldError
+  onAddClick?: () => void
 }
 
 export function CustomFormField<T extends FieldValues>({
@@ -25,7 +26,8 @@ export function CustomFormField<T extends FieldValues>({
   required = false,
   recommended = false,
   type = 'input',
-  error
+  error,
+  onAddClick
 }: CustomFormFieldProps<T>) {
 const getStyledLabel = () => {
   return (
@@ -46,18 +48,19 @@ const getStyledLabel = () => {
   return (
     <div className="space-y-2">
       <div className="relative flex items-center justify-between">
-        <FormLabel className="text-sm font-medium absolute top-3.5 left-3.5">
+        <FormLabel className="text-sm font-medium absolute top-3.5 left-3.5 ">
           {getStyledLabel()}
         </FormLabel>
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          className="text-blue-500 hover:text-blue-600 p-0 h-auto font-normal absolute right-2.5 top-3.5"
-        >
-          <Plus className="w-4 h-4 mr-1" />
-          Add
-        </Button>
+       <Button
+  type="button"
+  variant="ghost"
+  size="sm"
+  className="text-blue-500 hover:text-blue-600 p-0 h-auto font-normal absolute right-2.5 top-3.5"
+  onClick={onAddClick} // ← Call the handler when clicked
+>
+  <Plus className="w-4 h-4 mr-1" />
+  Add
+</Button>
       </div>
       
       <FormField

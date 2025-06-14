@@ -93,6 +93,18 @@ export const condoFormSchema = z.object({
   communityAmenityFeatures: z.string().optional(),
   featuredPhotos: z.array(z.instanceof(File)).optional(),
   morePhotos: z.array(z.instanceof(File)).optional(),
+ propertyName: z.string().min(1, "Required"),
+  totalUnit: z.string().min(1, "Required"),
+  propertyWebsite: z.string().url().optional(),
+  country: z.string().min(1, "Required"),
+  streetAddress: z.string().min(1, "Required"),
+  aptSuite: z.string().optional(),
+  city: z.string().min(1, "Required"),
+  state: z.string().min(1, "Required"),
+  zipCode: z.string().min(1, "Required"),
+  leasingManagerName: z.string().min(1, "Required"),
+  leasingPhone: z.string().min(1, "Required"),
+  leasingEmail: z.string().email("Invalid email"),
 })
 
 export type CondoFormData = z.infer<typeof condoFormSchema>
