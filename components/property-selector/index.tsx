@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { PropertyTypeId, RoleId } from "@/utils/types"
 
 import { propertyTypes, roles } from "@/lib/mockData"
+import Link from "next/link"
 import { LandlordForm } from "../condo-form/LandLordForm"
 import { PropertyManagementForm } from "../condo-form/PropertyManagementForm"
 import { RealtorForm } from "../condo-form/RealtorFrom"
@@ -127,9 +128,9 @@ export function PropertySelector({ onComplete }: PropertySelectorProps) {
               Back
             </Button>
             
-            <Button
+            <Link
+              href={"/address"}
               onClick={handleContinue}
-              disabled={!selectedRole}
               className="px-8"
               style={{
               display: 'flex',
@@ -149,7 +150,7 @@ export function PropertySelector({ onComplete }: PropertySelectorProps) {
             }}
             >
               Get Started
-            </Button>
+            </Link>
           </div>
         </div>
       )}

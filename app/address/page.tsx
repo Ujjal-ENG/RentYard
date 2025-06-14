@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { CustomFormField } from "./FormField"
-import { PhotoUpload } from "./PhotoUpload"
-import { CondoFormData, condoFormSchema } from "./types"
+import { CustomFormField } from "../../components/condo-form/FormField"
+import { PhotoUpload } from "../../components/condo-form/PhotoUpload"
+import { CondoFormData, condoFormSchema } from "../../components/condo-form/types"
 
-export function CondoForm() {
+export default function CondoForm() {
   const form = useForm<CondoFormData>({
     resolver: zodResolver(condoFormSchema),
     defaultValues: {
@@ -30,12 +30,15 @@ export function CondoForm() {
 
   const onSubmit = (data: CondoFormData) => {
     console.log("Form submitted:", data)
-    // Handle form submission here
   }
 
   const handlePhotoUpload = (files: File[], type: 'featured' | 'more' | 'cover') => {
     console.log(`${type} photos uploaded:`, files)
-    // Handle photo upload here
+  }
+
+  const handleBack = () => {
+    // Implement your back navigation logic here, e.g.:
+    window.history.back();
   }
 
   return (
@@ -155,13 +158,13 @@ export function CondoForm() {
 
           {/* Photo Upload Sections */}
           <div className="space-y-8">
-            <div className="border-t pt-8">
-              <div className="text-lg font-medium text-gray-900 mb-2">
+            <div className="rounded-lg border-2 border-gray-200">
+              <div className="text-lg font-normal border-b-2 p-5 text-[#6F6C6A] bg-[#F4F4F4] rounded-t-lg border-gray-200">
                 Property gallery
                 <span className="text-sm font-normal text-gray-500">(Its not unit photos)*</span>
               </div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6 p-6">
                 <PhotoUpload
                   title="Featured photos*"
                   onUpload={(files) => handlePhotoUpload(files, 'featured')}
@@ -178,10 +181,18 @@ export function CondoForm() {
           </div>
 
           {/* Submit Button */}
-          <div className="flex justify-end pt-6">
+           <div className="flex items-center justify-between pt-6">
+            <Button
+              variant="default"
+              onClick={handleBack}
+              className="px-6 underline"
+            >
+              Back
+            </Button>
             <Button type="submit" className="px-8 py-2">
               Submit
             </Button>
+          
           </div>
         </form>
       </Form>
