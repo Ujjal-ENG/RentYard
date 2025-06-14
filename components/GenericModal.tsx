@@ -13,12 +13,12 @@ interface GenericModalProps {
 export function GenericModal({ isOpen, title, children, onClose }: GenericModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="bg-white rounded-lg shadow-lg max-w-5xl w-full">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          <DialogClose className="absolute top-2 right-2">✕</DialogClose>
+          <DialogClose className="absolute top-2 right-2 cursor-pointer">✕</DialogClose>
         </DialogHeader>
-        <div className="mt-4">{children}</div>
+        <div>{children}</div>
       </DialogContent>
     </Dialog>
   );

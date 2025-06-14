@@ -8,12 +8,13 @@ interface PropertyAddressFormProps {
 
 export function PropertyAddressForm({ control, errors }: PropertyAddressFormProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-6xl w-full mx-auto">
       <CustomFormField
         control={control}
         name="propertyName"
         label="Property name as identifier"
         required
+        isAddButtonVisible={false}
         // error={errors.propertyName}
       />
       <CustomFormField
@@ -21,13 +22,15 @@ export function PropertyAddressForm({ control, errors }: PropertyAddressFormProp
         name="totalUnit"
         label="Total apartment unit"
         required
+        isAddButtonVisible={false}
         // error={errors.totalUnit}
       />
       <CustomFormField
         control={control}
         name="propertyWebsite"
         label="Property website"
-        placeholder="https://"
+      
+        isAddButtonVisible={false}
         // error={errors.propertyWebsite}
       />
       <CustomFormField
@@ -35,6 +38,7 @@ export function PropertyAddressForm({ control, errors }: PropertyAddressFormProp
         name="country"
         label="Country/Region"
         required
+        isAddButtonVisible={false}
         // error={errors.country}
       />
       <CustomFormField
@@ -42,13 +46,15 @@ export function PropertyAddressForm({ control, errors }: PropertyAddressFormProp
         name="streetAddress"
         label="Street address"
         required
+        isAddButtonVisible={false}
         // error={errors.streetAddress}
       />
       <CustomFormField
         control={control}
         name="aptSuite"
         label="Apt, suite, unit"
-        placeholder="(if applicable)"
+      
+        isAddButtonVisible={false}
         // error={errors.aptSuite}
       />
       <CustomFormField
@@ -56,6 +62,7 @@ export function PropertyAddressForm({ control, errors }: PropertyAddressFormProp
         name="city"
         label="City/Town"
         required
+        isAddButtonVisible={false}
         // error={errors.city}
       />
       <CustomFormField
@@ -63,6 +70,7 @@ export function PropertyAddressForm({ control, errors }: PropertyAddressFormProp
         name="state"
         label="State/Territory"
         required
+        isAddButtonVisible={false}
         // error={errors.state}
       />
       <CustomFormField
@@ -70,6 +78,7 @@ export function PropertyAddressForm({ control, errors }: PropertyAddressFormProp
         name="zipCode"
         label="Zip code"
         required
+        isAddButtonVisible={false}
         // error={errors.zipCode}
       />
     </div>

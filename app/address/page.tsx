@@ -67,7 +67,8 @@ export default function CondoForm() {
             <CustomFormField
             control={form.control}
             name="petFees"
-            label="Pet fees"
+              label="Pet fees"
+              required
             error={form.formState.errors.petFees}
             onAddClick={() => setModalType("petFees")}
                   />
