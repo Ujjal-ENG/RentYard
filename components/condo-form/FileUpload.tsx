@@ -1,5 +1,7 @@
+"use client"
+import PdfIcon from "@/icons/PdfIcon"
 import { cn } from "@/lib/utils"
-import { FileText, Upload } from "lucide-react"
+import { FileText } from "lucide-react"
 import { useRef, useState } from "react"
 
 interface FileUploadProps {
@@ -34,19 +36,19 @@ export function FileUpload({
   return (
     <div className={cn("space-y-2", className)}>
       <div
-        className="border-2 border-dashed border-gray-300 rounded-lg p-2 max-w-sm cursor-pointer hover:border-gray-400 transition-colors"
+        className="border-2 border-dashed bg-[#F4F4F4] border-[#E0E0E0] rounded-lg p-1 max-w-md cursor-pointer hover:border-gray-400 transition-colors"
         onClick={openFileDialog}
       >
         <div className="flex gap-3 items-center justify-center text-center">
           {selectedFile ? (
             <>
-              <FileText className="w-8 h-8 text-gray-600 mb-2" />
+              <FileText className="w-8 h-8 text-gray-600" />
               <span className="text-sm text-gray-700 font-medium">{selectedFile.name}</span>
               <span className="text-xs text-gray-500">Click to change</span>
             </>
           ) : (
             <>
-              <Upload className="w-8 h-8 text-gray-400 mb-2" />
+             <PdfIcon />
               <span className="text-md font-semibold text-gray-500">{placeholder}</span>
             </>
           )}
