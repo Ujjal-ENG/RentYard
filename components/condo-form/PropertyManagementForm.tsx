@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form"
 import { Title } from "../shared/Title"
 import { FileUpload } from "./FileUpload"
 import FormFooter from "./FormFooter"
-import { PhoneInput } from "./PhoneInput"
+import { PhoneInput } from "../../elements/input/PhoneInput"
 import { PropertyManagementFormData, propertyManagementFormSchema } from "./types"
 
 interface PropertyManagementFormProps {

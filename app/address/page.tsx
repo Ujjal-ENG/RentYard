@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { CustomFormField } from "../../components/condo-form/FormField"
 import { PhotoUpload } from "../../components/condo-form/PhotoUpload"
 import { CondoFormData, condoFormSchema } from "../../components/condo-form/types"
+import { CustomFormField } from "../../elements/input/FormField"
 
 export default function CondoForm() {
   const form = useForm<CondoFormData>({
