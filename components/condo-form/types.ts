@@ -27,14 +27,32 @@ export const landlordFormSchema = z.object({
 
 // Realtor Form Schema
 export const realtorFormSchema = z.object({
-  lenienceNumber: z.string().min(1, "Lenience number is required"),
-  additionalDocuments: z.instanceof(File).optional(),
-  agreementWithLandlord: z.instanceof(File, { message: "Agreement with landlord is required" }),
-  acceptTerms: z.boolean().refine(val => val === true, {
-    message: "You must accept the terms and conditions"
-  })
+  lenienceNumber: z
+    .string()
+    .min(1, "License number is required")
+    .regex(/^\d+$/, "License number must contain only numbers")
+    .min(6, "License number must be at least 6 digits")
+    .max(20, "License number must not exceed 20 digits"),
+  
+  additionalDocuments: z
+    .instanceof(File)
+    .optional()
+    .refine(
+      (file) => !file || file.type === "application/pdf",
+      "Only PDF files are allowed"
+    ),
+  
+  agreementWithLandlord: z
+    .instanceof(File, { message: "Agreement with landlord is required" })
+    .refine(
+      (file) => file.type === "application/pdf",
+      "Only PDF files are allowed"
+    ),
+  
+  acceptTerms: z
+    .boolean()
+    .refine(val => val === true, "You must accept terms and conditions")
 })
-
 // Property Management Form Schema
 export const propertyManagementFormSchema = z.object({
   companyName: z.string().min(1, "Company name is required"),
@@ -87,3 +105,4 @@ export interface FormFieldProps {
   recommended?: boolean
   type?: 'input' | 'textarea'
 }
+

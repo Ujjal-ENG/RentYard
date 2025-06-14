@@ -1,15 +1,13 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { zodResolver } from "@hookform/resolvers/zod"
-import Link from "next/link"
 import { useForm } from "react-hook-form"
-import { FormCheckbox } from "../shared/FormCheckbox"
 import { Title } from "../shared/Title"
 import { FileUpload } from "./FileUpload"
+import FormFooter from "./FormFooter"
 import { PhoneInput } from "./PhoneInput"
 import { PropertyManagementFormData, propertyManagementFormSchema } from "./types"
 
@@ -315,75 +313,13 @@ export function PropertyManagementForm({ onSubmit, nextPageUrl = "/address" }: P
           </div>
 
           <div className="absolute bottom-[-105px] left-0 w-full">
-  {/* Terms and Conditions Checkbox */}
-          <div className="mt-6">
-            <FormCheckbox
-              control={form.control}
-              name="acceptTerms"
-              label="Accept RentYard property adding terms & condition"
+  <FormFooter
+              form={form}
+              isFormValid={isFormValid}
+              nextPageUrl={nextPageUrl}
+              onBack={handleBack}
+              onSubmit={handleSubmit}
             />
-          </div>
-
-          {/* Get Started Button */}
-            <div className="flex items-center justify-between pt-6">
-            <Button
-              variant="default"
-              onClick={handleBack}
-              className="px-6 underline"
-            >
-              Back
-            </Button>
-            {isFormValid ? (
-              <Link href={nextPageUrl}>
-                <Button 
-                  type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 rounded-md font-medium"
-                              style={{
-              display: 'flex',
-              width: '128px',
-              padding: '12px 24px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '10px',
-              borderRadius: '12px',
-              background: ' #316EED',
-              color: ' #FFFFFF',
-              fontFamily: 'Fustat',
-              fontSize: '16px',
-              fontStyle: 'normal',
-              fontWeight: 400,
-              lineHeight: 'normal'
-            }}
-                >
-                  Get Started
-                </Button>
-              </Link>
-            ) : (
-              <Button 
-                type="button"
-                    disabled
-                        style={{
-              display: 'flex',
-              width: '128px',
-              padding: '12px 24px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: '10px',
-              borderRadius: '12px',
-              background: ' #316EED',
-              color: ' #FFFFFF',
-              fontFamily: 'Fustat',
-              fontSize: '16px',
-              fontStyle: 'normal',
-              fontWeight: 400,
-              lineHeight: 'normal'
-            }}
-              >
-                Get Started
-              </Button>
-              )}
-            
-          </div>
           </div>
 
         
