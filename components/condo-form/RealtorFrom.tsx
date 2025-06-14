@@ -23,7 +23,7 @@ export function RealtorForm({ onSubmit }: RealtorFormProps) {
   })
 
   return (
-    <div className="rounded-lg space-y-6 border-2 border-gray-200">
+    <div className="rounded-lg space-y-6 border-2 border-gray-200 relative">
       <Title text="Realtor verification" />
       
       <Form {...form}>
@@ -90,7 +90,8 @@ export function RealtorForm({ onSubmit }: RealtorFormProps) {
 
         </form>
             {/* Shared Form from shared folder */}
-         <FormCheckbox
+        <FormCheckbox
+          className="absolute mt-4"
           control={form.control}
           name="acceptTerms"
           label="Accept RentYard property adding terms & condition"

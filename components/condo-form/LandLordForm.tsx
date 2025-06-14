@@ -21,7 +21,7 @@ export function LandlordForm({ onSubmit }: LandlordFormProps) {
   })
 
   return (
-    <div className="rounded-lg border-2 space-y-6 border-gray-200">
+    <div className="relative rounded-lg border-2 space-y-6 border-gray-200">
       <Title text="Proof of ownership" />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 p-6 ">
@@ -49,6 +49,7 @@ export function LandlordForm({ onSubmit }: LandlordFormProps) {
               {/* Shared Form from shared folder */}
 
           <FormCheckbox
+            className="absolute mt-10 left-[-2px]"
             control={form.control}
             name="acceptTerms"
             label="Accept RentYard property adding terms & condition"

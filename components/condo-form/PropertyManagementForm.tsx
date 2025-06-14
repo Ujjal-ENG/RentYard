@@ -35,7 +35,7 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
   })
 
   return (
-    <div className="rounded-lg border-2 space-y-6 border-gray-200">
+    <div className="relative rounded-lg border-2 space-y-6 border-gray-200">
       <Title text="Company & office info" />
       
       <Form {...form}>
@@ -268,7 +268,8 @@ export function PropertyManagementForm({ onSubmit }: PropertyManagementFormProps
           </div>
 
           {/* Shared Form from shared folder */}
-        <FormCheckbox
+          <FormCheckbox
+            className="absolute mt-10 left-[-2px]"
             control={form.control}
             name="acceptTerms"
             label="Accept RentYard property adding terms & condition"
