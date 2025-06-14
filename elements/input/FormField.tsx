@@ -27,23 +27,27 @@ export function CustomFormField<T extends FieldValues>({
   type = 'input',
   error
 }: CustomFormFieldProps<T>) {
-  const getLabelText = () => {
-    if (required) return `${label}(Required)`
-    if (recommended) return `${label}(Optional but recommended)`
-    return `${label}(Optional)`
-  }
+const getStyledLabel = () => {
+  return (
+    <span>
+      {label}
+      {required && <span className="text-red-500"> (Required)</span>}
+      {!required && recommended && (
+        <span className="text-gray-600"> (Optional but recommended)</span>
+      )}
+      {!required && !recommended && (
+        <span className="text-gray-500"> (Optional)</span>
+      )}
+    </span>
+  );
+};
 
-  const getLabelColor = () => {
-    if (required) return "text-red-500"
-    if (recommended) return "text-gray-600"
-    return "text-gray-500"
-  }
 
   return (
     <div className="space-y-2">
       <div className="relative flex items-center justify-between">
-        <FormLabel className={cn("text-sm font-medium absolute top-3.5 left-3.5", getLabelColor())}>
-          {getLabelText()}
+        <FormLabel className="text-sm font-medium absolute top-3.5 left-3.5">
+          {getStyledLabel()}
         </FormLabel>
         <Button
           type="button"

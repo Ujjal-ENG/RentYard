@@ -61,7 +61,7 @@ export default function CondoForm() {
               control={form.control}
               name="petFees"
               label="Pet fees"
-              placeholder="Optional, add fees if you allow pet"
+            
               error={form.formState.errors.petFees}
             />
             

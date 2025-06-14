@@ -106,3 +106,54 @@ export interface FormFieldProps {
   type?: 'input' | 'textarea'
 }
 
+export const propertyAddressSchema = z.object({
+  propertyName: z.string().min(1, "Property name is required"),
+  totalApartmentUnit: z.string().min(1, "Total apartment unit is required"),
+  propertyWebsite: z.string().optional(),
+  country: z.string().min(1, "Country is required"),
+  streetAddress: z.string().min(1, "Street address is required"),
+  aptSuiteUnit: z.string().optional(),
+  city: z.string().min(1, "City is required"),
+  state: z.string().min(1, "State is required"),
+  zipCode: z.string().min(1, "Zip code is required")
+})
+
+export const leasingInfoSchema = z.object({
+  leasingManagerName: z.string().min(1, "Leasing manager name is required"),
+  leasingManagerPhone: z.string().min(1, "Phone number is required"),
+  leasingManagerEmail: z.string().email("Invalid email address"),
+  addressSameAsProperty: z.boolean().default(false)
+})
+
+export const chargesSchema = z.object({
+  applicationFee: z.string().min(1, "Application fee is required"),
+  applicantType: z.string().min(1, "Applicant type is required"),
+  adminFee: z.string().min(1, "Admin fee is required")
+})
+
+export const rentFrequencySchema = z.object({
+  rentPaymentFrequency: z.string().min(1, "Rent payment frequency is required"),
+  rentReminderDate: z.string().min(1, "Rent reminder date is required"),
+  rentDueDate: z.string().min(1, "Rent due date is required")
+})
+
+
+// Amenities data
+export const amenitiesData = [
+  { id: 'air-conditioning', label: 'Air conditioning', icon: '❄️' },
+  { id: 'cable-ready', label: 'Cable ready', icon: '📺' },
+  { id: 'ceiling-fan', label: 'Ceiling fan', icon: '🌀' },
+  { id: 'high-ceilings', label: 'High ceilings', icon: '🏛️' },
+  { id: 'private-balcony', label: 'Private balcony', icon: '🏠' },
+  { id: 'refrigerator', label: 'Refrigerator', icon: '❄️' },
+  { id: 'wooded-views', label: 'Wooded views', icon: '🌲' },
+  { id: 'wd-hookup', label: 'W/D hookup', icon: '🔌' },
+  { id: 'hardwood-floor', label: 'Hardwood Floor (home)', icon: '🪵' },
+  { id: 'hardwood-floor-2', label: 'Hardwood Floor (home)', icon: '🪵' },
+  { id: 'fireplace', label: 'Fireplace (home)', icon: '🔥' },
+  { id: 'first-aid-kit', label: 'First aid kit', icon: '🏥' },
+  { id: 'carbon-monoxide', label: 'Carbon monoxide alarm', icon: '⚠️' },
+  { id: 'expanded-patios', label: 'Expanded patios (home)', icon: '🏡' },
+  { id: 'free-parking', label: 'Free parking on premises', icon: '🅿️' },
+  { id: 'fire-extinguisher', label: 'Fire extinguisher', icon: '🧯' },
+]
