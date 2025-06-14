@@ -16,7 +16,8 @@ interface CustomFormFieldProps<T extends FieldValues> {
   type?: 'input' | 'textarea'
   error?: FieldError
   onAddClick?: () => void,
-  isAddButtonVisible?: boolean
+  isAddButtonVisible?: boolean,
+  labelIsPositioned?: boolean, // Optional prop to control label positioning
 }
 
 export function CustomFormField<T extends FieldValues>({
@@ -29,7 +30,9 @@ export function CustomFormField<T extends FieldValues>({
   type = 'input',
   error,
   onAddClick,
-  isAddButtonVisible = true
+  isAddButtonVisible = true,
+  labelIsPositioned = true, 
+  
 }: CustomFormFieldProps<T>) {
 const getStyledLabel = () => {
   return (
@@ -50,7 +53,7 @@ const getStyledLabel = () => {
   return (
     <div className="space-y-2">
       <div className="relative flex items-center justify-between">
-        <FormLabel className="text-sm font-medium absolute top-3.5 left-3.5 ">
+        <FormLabel className={cn(labelIsPositioned? "text-xs text-balance font-medium absolute top-5.5 left-3.5": "text-sm text-balance font-medium")}>
           {getStyledLabel()}
         </FormLabel>
         {isAddButtonVisible &&
@@ -58,7 +61,7 @@ const getStyledLabel = () => {
           type="button"
           variant="ghost"
           size="sm"
-          className="text-blue-500 hover:text-blue-600 p-0 h-auto font-normal absolute right-2.5 top-3.5"
+          className="text-blue-500 hover:text-blue-600 p-0 h-auto font-normal absolute right-2.5 top-5.5"
           onClick={onAddClick} // ← Call the handler when clicked
         >
           <Plus className="w-4 h-4 mr-1" />
@@ -86,7 +89,7 @@ const getStyledLabel = () => {
                 <Input
                   placeholder={placeholder}
                   className={cn(
-                    error && "border-red-500 focus-visible:ring-red-500"
+                    "p-6",error && "border-red-500 focus-visible:ring-red-500"
                   )}
                   {...field}
                 />
